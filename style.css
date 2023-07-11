@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;900&display=swap');
+
+:root {
+    --light: #e2e8f0;
+    --dark: rgb(46, 46, 46);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.dark-mode {
+    background-color: var(--dark);
+    color: white;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+
+#header {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 20px;
+}
+
+#main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgb(204, 124, 4);
+
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+
+    margin: 50px;
+}
+
+#game-top-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(167, 253, 8);
+    padding: 40px;
+}
+
+#whose-game-turn {
+    font-size: 1.4rem;
+    padding: 10px;
+    border-radius: 10px;
+    color: black;
+    background-color: var(--light);
+}
+
+#dashboard-container {
+    border: 1px solid rgb(0, 247, 255);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#dashboard-grid {
+    border: 1px solid rgb(68, 231, 19);
+    width: 500px;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+}
+
+#dashboard-grid > * {
+    background-color: var(--light);
+    border-radius: 10px;
+}
+
+/* SCOREBOARD GRID */
+#scoreboard-grid {
+    border: 1px solid rgb(163, 1, 204);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr 1fr;
+    width: 500px;
+    border: 4px solid white;
+    padding: 20px;
+}
+
+#scoreboard-grid > * {
+    justify-self: center;
+    align-self: center;
+    font-size: 1.3rem;
+}
+
+#player-x {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+}
+
+#player-x-score {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+}
+
+#ties {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+}
+
+#ties-score {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+}
+
+#player-o {
+    grid-row: 1 / 2;
+    grid-column: 3 / 4;
+}
+
+#player-o-score {
+    grid-row: 2 / 3;
+    grid-column: 3 / 4;
+}
+
+
+
+#footer {
+    text-align: center;
+    margin-top: auto;
+    padding: 10px;
+    color: rgb(182, 182, 182);
+}
