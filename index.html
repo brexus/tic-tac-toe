@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+
+</head>
+<body>
+<div id="container" class="dark-mode">
+    <header id="header">
+        <h1>Tic Tac Toe XO</h1>
+    </header>
+
+    <main id="main">
+        <div id="game-container">
+            <div id="game-top-container">
+                <div id="whose-game-turn">O TURN</div>
+                <button id="restart" type="button">RESTART</button>
+            </div>
+
+            <div id="dashboard-container">
+                <div id="dashboard-grid">
+                    <div data-dashboard="0"></div>
+                    <div data-dashboard="1"></div>
+                    <div data-dashboard="2"></div>
+
+                    <div data-dashboard="3"></div>
+                    <div data-dashboard="4"></div>
+                    <div data-dashboard="5"></div>
+
+                    <div data-dashboard="6"></div>
+                    <div data-dashboard="7"></div>
+                    <div data-dashboard="8"></div>
+                </div>
+            </div>
+
+            <div id="scoreboard-grid">
+                <div id="player-x">PLAYER X</div>
+                <div id="player-x-score">0</div>
+
+                <div id="ties">TIES</div>
+                <div id="ties-score">0</div>
+
+                <div id="player-o">PLAYER O</div>
+                <div id="player-o-score">0</div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="gameOverWindow"></div>
+
+    <footer id="footer">Szymon Wierzchoś | Copyright C 2023</footer>
+</div>
+</body>
+</html>
