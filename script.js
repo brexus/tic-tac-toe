@@ -13,83 +13,6 @@ const Player = (name, marker) => {
 
 
 
-const GameController = (() => {
-    const Player1 = Player("Player X", "x");
-    const Player2 = Player("Player O", "o");
-    let round = 1;
-    let isOver = false;
-    let occupiedFields = 0;
-    let whoWin = "";
-
-    const winning_combos = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6],
-    ];
-
-    const getCurrentSign = () => {
-        if(round % 2 === 1) return "x";
-        return "o";
-    }
-
-    const checkWin = () => {
-        for (let i = 0; i < winning_combos; i++) {
-            const [a, b, c] = winning_combos[i];
-
-            if ((Gameboard.getField(a) === Gameboard.getField(b)) && (Gameboard.getField(b) === Gameboard.getField(c))) {
-                isOver = true;
-                whoWin = Gameboard.getField(a);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    const playRound = (index) => {
-        sign = getCurrentSign();
-
-        if (Gameboard.getField(index) === "") {
-            Gameboard.setField(index, sign);
-            occupiedFields++;
-        } else {
-
-        }
-
-        round++;
-    };
-    
-    let counter = 0;
-
-    const playGame = () => {
-        occupiedFields = 0;
-
-        while(!checkWin() && ( occupiedFields < 9 )) {
-            console.log(counter);
-            playRound(prompt("Daj index:"));
-        }
-        // if (checkWin())
-
-        Gameboard.showMyBoard();
-    }
-
-    return {playRound, playGame};
-})();
-
-
-
-
-
-const displayController = (() => {
-    const dashboardItems = document.querySelectorAll('[data-dashboard]');
-    
-
-})();
-
 
 const Gameboard = (() => {
 
@@ -104,9 +27,7 @@ const Gameboard = (() => {
     }
 
     const reset = () => {
-        myBoard.forEach(item => {
-            item = "";
-        });
+        myBoard = ["", "", "", "", "", "", "", "", ""];
     }
 
     const showMyBoard = () => {
@@ -122,5 +43,139 @@ const Gameboard = (() => {
 
 
 
+
+
+
+
+
+
+
+
+
+const GameController = (() => {
+    const PlayerX = Player("Player X", "x");
+    const PlayerO = Player("Player O", "o");
+    let scorePlayerX = 0;
+    let scorePlayerO = 0;
+    let scoreTies = 0;
+
+    let round = 1;
+    let isOver = false;
+    let occupiedFields = 0;
+    let whoWin = "";
+
+    const getScorePlayerX = () => scorePlayerX;
+    const getScorePlayerO = () => scorePlayerO;
+    const getScoreTies = () => scoreTies;
+
+
+    const winning_combos = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+
+    const getCurrentSign = () => {
+        if(round % 2 === 1) return "x";
+        return "o";
+    }
+
+    const checkWin = () => {
+        
+        for (let i = 0; i < winning_combos.length; i++) {
+            let [a, b, c] = winning_combos[i];
+
+            if ((Gameboard.getField(a) !== "") && (Gameboard.getField(a) === Gameboard.getField(b)) && (Gameboard.getField(b) === Gameboard.getField(c))) {
+                // isOver = true;
+                // whoWin = Gameboard.getField(a);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    const playRound = (index) => {
+
+        sign = getCurrentSign();
+
+       
+        if(!checkWin() && (occupiedFields <= 9)) {
+            if (Gameboard.getField(index) === "") {
+                Gameboard.setField(index, sign);
+                displayController.updateDashboard();
+                occupiedFields++;
+            }
+            round++;
+
+            // WIN
+            if (checkWin()) { 
+                if(sign === "x") {
+                    scorePlayerX++;
+
+                } else if(sign === "o") {
+                    scorePlayerO++;
+                }
+                displayController.updateScoreboard();
+                resetGame();
+                occupiedFields = 0;
+                Gameboard.showMyBoard();
+            }
+        }
+    };
+
+    const resetGame = () => {
+        round = 1;
+        Gameboard.reset();
+        displayController.updateDashboard();
+    };
+    
+    return {playRound, getScorePlayerX, getScorePlayerO, getScoreTies};
+})();
+
+
+
+
+
+
+
+
+
+const displayController = (() => {
+    const dashboardItems = document.querySelectorAll('[data-dashboard]');
+    
+    for (let i = 0; i < dashboardItems.length; i++) {
+        dashboardItems[i].addEventListener('click', () => {
+            GameController.playRound(i);
+        });
+        
+    }
+
+    const updateDashboard = () => {
+        for (let i = 0; i < dashboardItems.length; i++) {
+            dashboardItems[i].innerHTML = Gameboard.getField(i);
+        }
+    }
+
+    const updateScoreboard = () => {
+        const scorePlayerX = document.getElementById("player-x-score");
+        const scorePlayerO = document.getElementById("player-o-score");
+        const scoreTies = document.getElementById("ties-score");
+
+        scorePlayerX.innerText = GameController.getScorePlayerX();
+        scorePlayerO.innerText = GameController.getScorePlayerO();
+        scoreTies.innerText = GameController.getScoreTies();
+    }
+
+    return {updateDashboard, updateScoreboard};
+})();
+
+
+
 // GameController.playGame();
 
+// displayController.play();
