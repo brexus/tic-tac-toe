@@ -59,7 +59,7 @@ const GameController = (() => {
     let scorePlayerO = 0;
     let scoreTies = 0;
 
-    let round = 1;
+    let round = 0;
     let isOver = false;
     let occupiedFields = 0;
     let whoWin = "";
@@ -101,40 +101,61 @@ const GameController = (() => {
 
     const playRound = (index) => {
 
+        round++;
         sign = getCurrentSign();
-
        
         if(!checkWin() && (occupiedFields <= 9)) {
+            // PUSTE POLE
             if (Gameboard.getField(index) === "") {
                 Gameboard.setField(index, sign);
                 displayController.updateDashboard();
                 occupiedFields++;
             }
-            round++;
+
+            // REMIS
+            if(occupiedFields == 9) {
+                scoreTies++;
+                resetAfterWin();
+                
+                displayController.updateScoreboard();
+                displayController.winCommunicate("ties", null);
 
             // WIN
-            if (checkWin()) { 
+            } else if (checkWin()) {
                 if(sign === "x") {
                     scorePlayerX++;
+                    displayController.winCommunicate("x", null);
 
                 } else if(sign === "o") {
                     scorePlayerO++;
+                    displayController.winCommunicate("o", null);
                 }
                 displayController.updateScoreboard();
-                resetGame();
-                occupiedFields = 0;
-                Gameboard.showMyBoard();
+                resetAfterWin();
+                
+            } else {
+                displayController.winCommunicate(null, sign);
             }
+            
         }
     };
 
-    const resetGame = () => {
-        round = 1;
+    const resetAfterWin = () => {
+        round = 0;
+        occupiedFields = 0;
         Gameboard.reset();
         displayController.updateDashboard();
     };
+
+    const resetGame = () => {
+        resetAfterWin();
+        displayController.updateScoreboard();
+        scorePlayerX = 0;
+        scorePlayerO = 0;
+        scoreTies = 0;
+    };
     
-    return {playRound, getScorePlayerX, getScorePlayerO, getScoreTies};
+    return {playRound, getScorePlayerX, getScorePlayerO, getScoreTies, resetGame};
 })();
 
 
@@ -171,7 +192,27 @@ const displayController = (() => {
         scoreTies.innerText = GameController.getScoreTies();
     }
 
-    return {updateDashboard, updateScoreboard};
+    const resetBtn = document.getElementById("restart");
+    resetBtn.addEventListener('click', () => {
+        GameController.resetGame();
+    });
+
+    
+    const winCommunicate = (winner, sign) => {
+        const whoseGameTurn = document.getElementById("whose-game-turn");
+        if (winner === "x") {
+            whoseGameTurn.innerText = "X WIN! X TURN";
+        } else if (winner === "o") {
+            whoseGameTurn.innerText = "O WIN! X TURN";
+        } else if (winner === 'ties') whoseGameTurn.innerText = "TIES! X TURN";
+        else if (sign === "x") whoseGameTurn.innerText = "O TURN";
+        else if (sign === "o") whoseGameTurn.innerText = "X TURN";
+        
+    };
+
+    
+
+    return {updateDashboard, updateScoreboard, winCommunicate};
 })();
 
 
