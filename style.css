@@ -101,10 +101,6 @@
     gap: 15px;
 }
 
-/* #dashboard-grid > * {
-    background-color: var(--dark-lighter);
-    border-radius: 10px;
-} */
 
 [data-dashboard] {
     background-color: var(--dark-lighter);
@@ -118,6 +114,7 @@
 
 [data-dashboard]:hover {
     background-color: rgb(202, 202, 202);
+    color: var(--dark);
     cursor: pointer;
 }
 
@@ -139,6 +136,7 @@
 #restart:hover {
     transform: scale(1.1);
     transition: 0.1s;
+    box-shadow: 0px 0px 15px -5px white;
 }
 
 #restart:active {
