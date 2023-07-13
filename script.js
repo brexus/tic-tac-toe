@@ -149,10 +149,10 @@ const GameController = (() => {
 
     const resetGame = () => {
         resetAfterWin();
-        displayController.updateScoreboard();
         scorePlayerX = 0;
         scorePlayerO = 0;
         scoreTies = 0;
+        displayController.updateScoreboard();
     };
     
     return {playRound, getScorePlayerX, getScorePlayerO, getScoreTies, resetGame};
