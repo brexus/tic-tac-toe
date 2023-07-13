@@ -4,6 +4,9 @@
     --light: #e2e8f0;
     --dark: rgb(46, 46, 46);
     --dark-lighter: rgb(100, 100, 100);
+
+    --player-x: rgb(214, 98, 98);
+    --player-o: rgb(109, 109, 219);
 }
 
 * {
@@ -27,15 +30,29 @@
 
 #header {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 20px;
+    padding: 10px 20px;
     display: flex;
     flex-direction: row;
 }
 
-#header > img {
-    margin-left: 10px;
-    width: 70px;
-    object-fit: contain;
+#header > h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -3px;
+}
+
+#header span {
+    padding: 0;
+    margin: 0;
+    
+}
+
+.red-x {
+    color: var(--player-x);
+}
+
+.red-o {
+    color: var(--player-o);
 }
 
 #main {
@@ -50,6 +67,8 @@
 #game-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* GAME TOP */
@@ -81,7 +100,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 50px;
+    /* padding-bottom: 50px; */
 }
 
 #dashboard-grid {
@@ -93,9 +112,54 @@
     gap: 20px;
 }
 
-#dashboard-grid > * {
+/* #dashboard-grid > * {
     background-color: var(--dark-lighter);
     border-radius: 10px;
+} */
+
+[data-dashboard] {
+    background-color: var(--dark-lighter);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    font-weight: bold;
+}
+
+[data-dashboard]:hover {
+    background-color: rgb(202, 202, 202);
+    cursor: pointer;
+}
+
+/* RESTART BUTTON */
+#restart {
+    width: max-content;
+    /* padding: 10px 20px; */
+    padding: 5px;
+    border-radius: 100%;
+    border: 3px solid rgb(255, 255, 255);
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    cursor: pointer;
+}
+
+#restart:hover {
+    transform: scale(1.1);
+    transition: 0.1s;
+}
+
+#restart:active {
+    transform: scale(0.95);
+}
+
+#restart > svg {
+    fill: white;
+    width: 40px;
+    height: 40px;
 }
 
 /* SCOREBOARD GRID */
@@ -147,16 +211,43 @@
 }
 
 #player-x-conntainer {
-    background-color:rgb(214, 98, 98);
+    background-color: var(--player-x);
 }
 
 #ties-container {
-    background-color:rgb(97, 184, 94)
+    background-color: var(--dark-lighter);
 }
 
 #player-o-container {
-    background-color: rgb(109, 109, 219);
+    background-color: var(--player-o);
 }
+
+
+/* GAME OVER WINDOW */
+#gameOverWindow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    flex-direction: column;
+    border-radius: 15px;
+    background-color: var(--light);
+    padding: 10px;
+    width: min(500px, 100%);
+    height: 300px;
+    /* min-width: 280px; */
+    /* backdrop-filter: blur(10px); */
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: flex;
+}
+
 
 
 #footer {
