@@ -59,7 +59,7 @@ const GameController = (() => {
     let scorePlayerO = 0;
     let scoreTies = 0;
 
-    let round = 0;
+    let round = 1;
     let isOver = false;
     let occupiedFields = 0;
     let whoWin = "";
@@ -101,10 +101,9 @@ const GameController = (() => {
 
     const playRound = (index) => {
 
-        round++;
         sign = getCurrentSign();
-       
-        if(!checkWin() && (occupiedFields <= 9)) {
+
+        if(!checkWin() && (occupiedFields <= 9) && (Gameboard.getField(index) === "")) {
             // PUSTE POLE
             if (Gameboard.getField(index) === "") {
                 Gameboard.setField(index, sign);
@@ -113,7 +112,7 @@ const GameController = (() => {
             }
 
             // REMIS
-            if(occupiedFields == 9) {
+            if(occupiedFields === 9) {
                 scoreTies++;
                 resetAfterWin();
                 
@@ -136,12 +135,12 @@ const GameController = (() => {
             } else {
                 displayController.winCommunicate(null, sign);
             }
-            
+            round++;
         }
     };
 
     const resetAfterWin = () => {
-        round = 0;
+        round = 1;
         occupiedFields = 0;
         Gameboard.reset();
         displayController.updateDashboard();
@@ -149,13 +148,14 @@ const GameController = (() => {
 
     const resetGame = () => {
         resetAfterWin();
+        displayController.winCommunicate(null, "o");
         scorePlayerX = 0;
         scorePlayerO = 0;
         scoreTies = 0;
         displayController.updateScoreboard();
     };
     
-    return {playRound, getScorePlayerX, getScorePlayerO, getScoreTies, resetGame};
+    return {playRound, getScorePlayerX, getScorePlayerO, getScoreTies, resetGame, getCurrentSign};
 })();
 
 
@@ -172,9 +172,23 @@ const displayController = (() => {
     for (let i = 0; i < dashboardItems.length; i++) {
         dashboardItems[i].addEventListener('click', () => {
             GameController.playRound(i);
+            dashboardItems[i].classList.remove("active");
         });
-        
+
+        dashboardItems[i].addEventListener('mouseenter', () => {
+            if((Gameboard.getField(i) === "") && (dashboardItems[i].innerText === "")) {
+                dashboardItems[i].classList.add("active");
+                dashboardItems[i].innerText = `${GameController.getCurrentSign()}`;
+            }
+        });
+
+        dashboardItems[i].addEventListener('mouseleave', () => {
+            if((Gameboard.getField(i) === "") && (dashboardItems[i].innerText !== "")) {
+                dashboardItems[i].innerText = "";
+            }
+        });
     }
+
 
     const updateDashboard = () => {
         for (let i = 0; i < dashboardItems.length; i++) {
@@ -207,8 +221,8 @@ const displayController = (() => {
         } else if (winner === 'ties') whoseGameTurn.innerText = "TIES! X TURN";
         else if (sign === "x") whoseGameTurn.innerText = "O TURN";
         else if (sign === "o") whoseGameTurn.innerText = "X TURN";
-        
     };
+
 
     
 
