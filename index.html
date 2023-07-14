@@ -11,8 +11,34 @@
 </head>
 <body>
 <div id="container" class="dark-mode">
+
+    <div id="start-game-screen">
+        <div id="start-game">
+
+            <h1 class="logo">
+                Tic Tac Toe
+                <span class="red-x">X</span>
+                <span class="red-o">O</span>
+            </h1>
+
+            <h2>Enter nicknames:</h2>
+            <div class="input-control">
+                <label for="player-x-name">Player X:</label>
+                <input required type="text" id="player-x-name">
+            </div>
+    
+            <div class="input-control">
+                <label for="player-o-name">Player O:</label>
+                <input required type="text" id="player-o-name">
+            </div>
+            <p>*Player X always starts!</p>
+            <button type="button" id="start-game-btn">Start game!</button>
+        </div>
+        <div id="start-game-footer">Szymon 'brexus' Wierzchoś | 2023 Copyright ©</div>
+    </div>
+
     <header id="header">
-        <h1>
+        <h1 class="logo">
             <span class="red-x">X</span>
             <span class="red-o">O</span>
         </h1>
@@ -65,7 +91,7 @@
     </main>
 
 
-    <footer id="footer">Szymon Wierzchoś | 2023 Copyright ©</footer>
+    <footer id="footer">Szymon 'brexus' Wierzchoś | 2023 Copyright ©</footer>
 </div>
 </body>
 </html>
