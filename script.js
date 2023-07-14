@@ -11,6 +11,30 @@ const Player = (name, marker) => {
     return {name, marker};
 };
 
+let PlayerX;
+let PlayerO;
+
+
+// START GAME SCREEN
+(() => {
+    const startGameBtn = document.getElementById("start-game-btn");
+    const startGameScreen = document.getElementById("start-game-screen");
+    const inputPlayerX = document.getElementById("player-x-name");
+    const inputPlayerO = document.getElementById("player-o-name");
+
+    const scoreboardPlayerXNick = document.getElementById("player-x");
+    const scoreboardPlayerONick = document.getElementById("player-o");
+
+    startGameBtn.addEventListener('click', () => {
+        startGameScreen.style.display = "none";
+        PlayerX = Player(inputPlayerX.value, "x");
+        PlayerO = Player(inputPlayerO.value, "o");
+
+        scoreboardPlayerXNick.innerText = PlayerX.name;
+        scoreboardPlayerONick.innerText = PlayerO.name;
+    });
+})();
+
 
 
 
@@ -49,12 +73,8 @@ const Gameboard = (() => {
 
 
 
-
-
-
 const GameController = (() => {
-    const PlayerX = Player("Player X", "x");
-    const PlayerO = Player("Player O", "o");
+
     let scorePlayerX = 0;
     let scorePlayerO = 0;
     let scoreTies = 0;
@@ -167,8 +187,8 @@ const GameController = (() => {
 
 
 const displayController = (() => {
+
     const dashboardItems = document.querySelectorAll('[data-dashboard]');
-    
     for (let i = 0; i < dashboardItems.length; i++) {
         dashboardItems[i].addEventListener('click', () => {
             GameController.playRound(i);
@@ -228,6 +248,9 @@ const displayController = (() => {
 
     return {updateDashboard, updateScoreboard, winCommunicate};
 })();
+
+
+
 
 
 
