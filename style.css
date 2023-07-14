@@ -61,7 +61,16 @@
 #start-game-screen h1 {
     font-size: 3.5rem;
     margin-bottom: 30px;
+    font-weight: 900;
+    
 }
+
+#start-game-screen div > span {
+    letter-spacing: -6px;
+    font-size: 3rem;
+    font-weight: 900;
+}
+
 
 #start-game-screen h2 {
     margin-bottom: 1px;
@@ -118,7 +127,6 @@
 }
 
 
-
 /* HEADER */
 #header {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -127,7 +135,7 @@
     flex-direction: row;
 }
 
-.logo > span {
+.logo-header {
     font-weight: 900;
     letter-spacing: -5px;
     font-family: 'Folklore', sans-serif;
